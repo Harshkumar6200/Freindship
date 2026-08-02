@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const generateBtn = document.getElementById("generateBtn");
     const usernameInput = document.getElementById("username");
     const cardSection = document.getElementById("cardSection");
-    const cardMessage = document.getElementById("cardMessage");
     let typedInstance = null;
 
     generateBtn.addEventListener("click", generateGreeting);
@@ -92,19 +91,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function generateGreeting() {
         const name = usernameInput.value.trim() || "Dear Friend";
+        const cardMessage = document.getElementById("cardMessage");
         
-        cardSection.style.display = "block";
-        cardSection.scrollIntoView({ behavior: "smooth" });
-
-        // Update card quote randomly from data-quotes attribute
+        // Pick and apply random quote from data-quotes BEFORE displaying the section
         if (cardSection && cardMessage) {
             const rawQuotes = cardSection.getAttribute("data-quotes");
             if (rawQuotes) {
                 const cardQuotes = JSON.parse(rawQuotes);
                 const randomQuote = cardQuotes[Math.floor(Math.random() * cardQuotes.length)];
-                cardMessage.textContent = randomQuote;
+                cardMessage.innerText = randomQuote;
             }
         }
+
+        // Show section and scroll
+        cardSection.style.display = "block";
+        cardSection.scrollIntoView({ behavior: "smooth" });
 
         // Fire Fireworks Confetti
         if (window.confetti) {
@@ -148,16 +149,20 @@ document.addEventListener("DOMContentLoaded", () => {
     downloadBtn.addEventListener("click", () => {
         const cardTarget = document.getElementById("captureCard");
 
-        html2canvas(cardTarget, {
-            backgroundColor: null,
-            scale: 2,
-            useCORS: true
-        }).then((canvas) => {
-            const link = document.createElement("a");
-            link.download = "Friendship_Day_Wish.png";
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-        });
+        // Delay execution slightly so DOM text layout syncs before snapshotting
+        setTimeout(() => {
+            html2canvas(cardTarget, {
+                backgroundColor: null,
+                scale: 2,
+                useCORS: true,
+                logging: false
+            }).then((canvas) => {
+                const link = document.createElement("a");
+                link.download = "Friendship_Day_Wish.png";
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
+        }, 100);
     });
 
     // 7. FULLSCREEN TOGGLE
