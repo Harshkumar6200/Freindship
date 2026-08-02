@@ -73,12 +73,19 @@
         </section>
 
         <!-- Interactive Greeting Card Target -->
-        <section id="cardSection" data-aos="fade-up" style="display: none;">
+        <!-- Added data-quotes to store multiple message varieties -->
+        <section id="cardSection" data-aos="fade-up" style="display: none;" 
+                 data-quotes='[
+                     "May your life always be filled with boundless happiness, laughter, success, and unforgettable memories with the ones who matter most.",
+                     "Real friendship isn’t about being inseparable, it’s being separated and knowing nothing will change. Wishing you endless joy and laughter!",
+                     "To a friend who makes every ordinary day feel like a grand adventure. Thank you for always standing by my side!",
+                     "A true friend is the greatest of all blessings. May your life be filled with endless smiles, peace, and love today and forever."
+                 ]'>
             <div class="glassCard" id="captureCard">
                 <div class="card-badge">Forever Friends</div>
                 <h2 class="card-title">Happy Friendship Day!</h2>
                 <h1 id="typewriterText"></h1>
-                <p class="card-message">
+                <p class="card-message" id="cardMessage">
                     May your life always be filled with boundless happiness, laughter, success, and unforgettable memories with the ones who matter most.
                 </p>
                 <div class="card-footer-mark">✨ Made with love for you ✨</div>
