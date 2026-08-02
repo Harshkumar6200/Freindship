@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const generateBtn = document.getElementById("generateBtn");
     const usernameInput = document.getElementById("username");
     const cardSection = document.getElementById("cardSection");
+    const cardMessage = document.getElementById("cardMessage");
     let typedInstance = null;
 
     generateBtn.addEventListener("click", generateGreeting);
@@ -94,6 +95,16 @@ document.addEventListener("DOMContentLoaded", () => {
         
         cardSection.style.display = "block";
         cardSection.scrollIntoView({ behavior: "smooth" });
+
+        // Update card quote randomly from data-quotes attribute
+        if (cardSection && cardMessage) {
+            const rawQuotes = cardSection.getAttribute("data-quotes");
+            if (rawQuotes) {
+                const cardQuotes = JSON.parse(rawQuotes);
+                const randomQuote = cardQuotes[Math.floor(Math.random() * cardQuotes.length)];
+                cardMessage.textContent = randomQuote;
+            }
+        }
 
         // Fire Fireworks Confetti
         if (window.confetti) {
@@ -115,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateShareLinks(name);
     }
 
-    // 5. RANDOM QUOTES GENERATOR
+    // 5. RANDOM QUOTES GENERATOR (Thought of the Day section)
     const quotes = [
         "Friends are the family we choose for ourselves.",
         "A real friend is one who walks in when the rest of the world walks out.",
